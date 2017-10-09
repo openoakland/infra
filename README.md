@@ -16,3 +16,8 @@ brew install terraform
 
 [1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
 [2]: https://brew.sh/
+
+## TODO:
+* Create an SSH key which isn't anyone's personal key to use for provisioning a machine
+* Check in IAM policy needed for people running terraform
+* Create an S3 bucket to store terraform state (that is only accessible by the terraformers)
