@@ -11,7 +11,16 @@ Prerequisites: [Homebrew][2]
 
 ```bash
 # 1. Install Terraform
-brew install terraform
+brew install terraform jq
+
+# 2. Install 1password command line tool
+# from: https://app-updates.agilebits.com/product_history/CLI
+op signin openoakland.1password.com [email] A3-[master-key]
+eval $(op signin openoakland) # you will have to do this per shell
+
+# Download the root SSH key
+op get item 7rh246cuoreo3lurhxdtlf5b44 | jq -r .details.notesPlain > ~/.ssh/id_rsa_openoakland
+chmod 600 ~/.ssh/id_rsa_openoakland
 ```
 
 [1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
