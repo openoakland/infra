@@ -70,12 +70,14 @@ resource "aws_instance" "oakcrime" {
       "sudo -u tdooner bash -c 'echo \"${file("ssh-keys/tom.pub")}\" > ~tdooner/.ssh/authorized_keys'",
       "sudo -u tdooner chmod 600 ~tdooner/.ssh/authorized_keys",
       "sudo usermod -aG sudo tdooner && sudo passwd -de tdooner",
+      "echo 'tdooner ALL=(ALL) NOPASSWD:ALL' | sudo tee '/etc/sudoers.d/tdooner' && sudo chmod 440 /etc/sudoers.d/tdooner",
 
       "sudo useradd --create-home --shell /bin/bash rik",
       "sudo -u rik mkdir -p ~rik/.ssh",
       "sudo -u rik bash -c 'echo \"${file("ssh-keys/rik.pub")}\" > ~rik/.ssh/authorized_keys'",
       "sudo -u rik chmod 600 ~rik/.ssh/authorized_keys",
-      "sudo usermod -aG sudo rik && sudo passwd -de rik"
+      "sudo usermod -aG sudo rik && sudo passwd -de rik",
+      "echo 'rik ALL=(ALL) NOPASSWD:ALL' | sudo tee '/etc/sudoers.d/rik' && sudo chmod 440 /etc/sudoers.d/rik"
     ]
   }
 }
