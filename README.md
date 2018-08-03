@@ -2,7 +2,7 @@
 
 This repo is an experiment to apply the practices of [Infrastructure as Code][1] to OpenOakland. Why?
 
-* *Inclusivity* - Being transparent in our operations demonstrates a model of inclusivity and enables bottom-up participation.
+* *Inclusivity* - Being transparent in our operations promotes collaboration and involvement of many.
 * *Documentation* - We will have documentation in source code about why infrastructure changes were made.
 * *Sustainability* - With better documentation and better participation, we will build a more sustainable organization.
 
@@ -30,3 +30,4 @@ chmod 600 ~/.ssh/id_rsa_openoakland
 * Create an SSH key which isn't anyone's personal key to use for provisioning a machine
 * Check in IAM policy needed for people running terraform
 * Create an S3 bucket to store terraform state (that is only accessible by the terraformers)
+* Use Ansible or some kind of desired-state configuration so that all the setup isn't in terraform
