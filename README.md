@@ -11,7 +11,7 @@ Prerequisites: [Homebrew][2]
 
 ```bash
 # 1. Install Terraform
-brew install terraform jq
+brew install terraform jq ansible
 
 # 2. Install 1password command line tool
 # from: https://app-updates.agilebits.com/product_history/CLI
@@ -25,6 +25,20 @@ chmod 600 ~/.ssh/id_rsa_openoakland
 
 [1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
 [2]: https://brew.sh/
+
+
+## Running
+
+Running Terraform
+```bash
+terraform plan
+terraform apply
+```
+
+Running Ansible (Councilmatic):
+```bash
+ansible-playbook -i inventory playbooks/councilmatic/councilmatic.yml
+```
 
 ## TODO:
 * Create an SSH key which isn't anyone's personal key to use for provisioning a machine

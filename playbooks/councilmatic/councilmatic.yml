@@ -1,0 +1,28 @@
+---
+- hosts: all
+  gather_facts: false
+  remote_user: tdooner
+  handlers:
+    - name: reload nginx
+      become: true
+      service:
+        name: nginx
+        state: reloaded
+
+  tasks:
+    - name: install python 2
+      become: true
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+    - name: Install Nginx
+      become: true
+      apt:
+        name: nginx
+
+    - name: Install Nginx vhost config file
+      become: true
+      copy:
+        src: templates/nginx.conf
+        dest: /etc/nginx/sites-enabled/councilmatic
+      notify:
+        - reload nginx
