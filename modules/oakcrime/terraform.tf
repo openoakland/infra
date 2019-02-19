@@ -61,7 +61,7 @@ module "env_web_production" {
   app_name      = "${var.app_name}-web"
   db_name       = "${var.app_name}"
   db_password   = "${var.db_password}"
-  db_username   = "${var.db_username}"
+  db_username   = "${var.app_name}"
   dns_zone_id   = "${module.app_oakcrime.dns_zone_id}"
   dns_zone_name = "${module.app_oakcrime.dns_zone}"
 
