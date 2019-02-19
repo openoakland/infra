@@ -1,7 +1,3 @@
-variable "security_group_name" {}
-variable "key_pair_id" {}
-variable "zone_id" {}
-
 resource "aws_instance" "oakcrime" {
   ami = "ami-ecc63a94"
   instance_type = "t2.medium"
@@ -45,4 +41,33 @@ resource "aws_route53_record" "oakcrime" {
   type = "A"
   ttl = 60
   records = ["${aws_instance.oakcrime.public_ip}"]
+}
+
+#########################
+# Beanstalk applications
+#########################
+
+module "app_oakcrime" {
+  source = "github.com/openoakland/terraform-modules//beanstalk_app?ref=v1.0.0"
+
+  app_name = "${var.app_name}"
+  dns_zone = "${var.dns_zone}"
+}
+
+module "env_web_production" {
+  source = "github.com/openoakland/terraform-modules//beanstalk_env?ref=v1.0.0"
+
+  app_instance  = "production"
+  app_name      = "${var.app_name}-web"
+  db_name       = "${var.app_name}"
+  db_password   = "${var.db_password}"
+  db_username   = "${var.db_username}"
+  dns_zone_id   = "${module.app_oakcrime.dns_zone_id}"
+  dns_zone_name = "${module.app_oakcrime.dns_zone}"
+
+  environment_variables = {
+    SECRET_KEY   = "${var.django_secret_key}"
+    SERVER_EMAIL = "root@localhost"
+    EMAIL_URL    = "smtp://localhost"
+  }
 }
