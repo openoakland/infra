@@ -7,6 +7,10 @@ This repo is an experiment to apply the practices of [Infrastructure as Code][1]
 * *Sustainability* - With better documentation and better participation, we will build a more sustainable organization.
 
 ## Setup (macOS)
+_*Note:* If you are looking to set up the infra repo for your Brigade, see [README.setup.md][setup] for how to set up the repo for the first time._
+
+To run Terraform within OpenOakland, follow these instructions:
+
 Prerequisites: [Homebrew][2]
 
 ```bash
@@ -25,9 +29,8 @@ chmod 600 ~/.ssh/id_rsa_openoakland
 
 [1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
 [2]: https://brew.sh/
+[setup]: https://github.com/openoakland/infra/blob/master/README.setup.md
 
 ## TODO:
 * Create an SSH key which isn't anyone's personal key to use for provisioning a machine
-* Check in IAM policy needed for people running terraform
-* Create an S3 bucket to store terraform state (that is only accessible by the terraformers)
 * Use Ansible or some kind of desired-state configuration so that all the setup isn't in terraform
