@@ -1,6 +1,6 @@
 provider "aws" {
   shared_credentials_file = "/dev/null" # require environment variables
-  region = "us-west-2"
+  region                  = "us-west-2"
 }
 
 data "aws_route53_zone" "openoakland" {
