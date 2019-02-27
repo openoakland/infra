@@ -16,10 +16,5 @@ variable "prod_django_secret_key" {
 
 variable "dns_zone" {
   description = "DNS zone for the Beanstalk applications"
-  default     = "oakcrime-eb2.aws.openoakland.org"
-}
-
-variable "app_name" {
-  description = "Slugified name of the application instance."
-  default     = "oakcrime"
+  default     = "aws.openoakland.org"
 }

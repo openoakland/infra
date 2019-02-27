@@ -47,27 +47,39 @@ resource "aws_route53_record" "oakcrime" {
 # Beanstalk applications
 #########################
 
-module "app_oakcrime" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_app?ref=v1.0.0"
+module "ci_user" {
+  source = "github.com/openoakland/terraform-modules//ci_user?ref=ci-user"
 
-  app_name = "${var.app_name}"
-  dns_zone = "${var.dns_zone}"
+  ci_username = "oakcrime-ci"
+}
+
+module "app_oakcrime" {
+  source = "github.com/openoakland/terraform-modules//beanstalk_app?ref=postgresdb"
+
+  app_name = "oakcrime"
+}
+
+module "db_production" {
+  source = "github.com/openoakland/terraform-modules//postgresdb?ref=postgresdb"
+
+  db_name     = "oakcrime"
+  db_password = "${var.prod_db_password}"
+  db_username = "oakcrime"
+  namespace   = "oakcrime-prod"
 }
 
 module "env_web_production" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_env?ref=v1.0.0"
+  source = "github.com/openoakland/terraform-modules//beanstalk_env?ref=postgresdb"
 
-  app_instance  = "production"
-  app_name      = "${var.app_name}-web"
-  db_name       = "${var.app_name}"
-  db_password   = "${var.db_password}"
-  db_username   = "${var.app_name}"
-  dns_zone_id   = "${module.app_oakcrime.dns_zone_id}"
-  dns_zone_name = "${module.app_oakcrime.dns_zone}"
+  app_instance = "prod-web"
+  app_name     = "oakcrime"
+  dns_zone     = "aws.openoakland.org"
+  key_pair     = "oakcrime"
 
   environment_variables = {
-    SECRET_KEY   = "${var.django_secret_key}"
-    SERVER_EMAIL = "root@localhost"
+    DATABASE_URL = "${module.db_production.postgis_database_url}"
     EMAIL_URL    = "smtp://localhost"
+    SECRET_KEY   = "${var.prod_django_secret_key}"
+    SERVER_EMAIL = "root@localhost"
   }
 }
