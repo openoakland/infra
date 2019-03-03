@@ -48,9 +48,9 @@ resource "aws_route53_record" "oakcrime" {
 #########################
 
 module "ci_user" {
-  source = "github.com/openoakland/terraform-modules//ci_user?ref=ci-user"
+  source = "github.com/openoakland/terraform-modules//eb_deploy_user?ref=ci-user"
 
-  ci_username = "oakcrime-ci"
+  eb_deploy_username = "oakcrime-ci"
 }
 
 module "app_oakcrime" {
