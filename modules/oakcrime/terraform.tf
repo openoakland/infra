@@ -60,8 +60,9 @@ module "app_oakcrime" {
 }
 
 module "db_production" {
-  source = "github.com/openoakland/terraform-modules//postgresdb?ref=v2.0.0"
+  source = "github.com/openoakland/terraform-modules//postgresdb?ref=v2.0.1"
 
+  db_engine_version = "10.6"
   db_name     = "oakcrime"
   db_password = "${var.prod_db_password}"
   db_username = "oakcrime"
