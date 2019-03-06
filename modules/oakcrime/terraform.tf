@@ -48,19 +48,19 @@ resource "aws_route53_record" "oakcrime" {
 #########################
 
 module "ci_user" {
-  source = "github.com/openoakland/terraform-modules//eb_deploy_user?ref=ci-user"
+  source = "github.com/openoakland/terraform-modules//eb_deploy_user?ref=v2.0.0"
 
   eb_deploy_username = "oakcrime-ci"
 }
 
 module "app_oakcrime" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_app?ref=postgresdb"
+  source = "github.com/openoakland/terraform-modules//beanstalk_app?ref=v2.0.0"
 
   app_name = "oakcrime"
 }
 
 module "db_production" {
-  source = "github.com/openoakland/terraform-modules//postgresdb?ref=postgresdb"
+  source = "github.com/openoakland/terraform-modules//postgresdb?ref=v2.0.0"
 
   db_name     = "oakcrime"
   db_password = "${var.prod_db_password}"
@@ -69,7 +69,7 @@ module "db_production" {
 }
 
 module "env_web_production" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_env?ref=postgresdb"
+  source = "github.com/openoakland/terraform-modules//beanstalk_web_env?ref=v2.0.0"
 
   app_instance = "prod-web"
   app_name     = "oakcrime"
