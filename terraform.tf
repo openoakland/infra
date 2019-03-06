@@ -1,6 +1,6 @@
 provider "aws" {
   shared_credentials_file = "/dev/null" # require environment variables
-  region = "us-west-2"
+  region                  = "us-west-2"
 }
 
 data "aws_route53_zone" "openoakland" {
@@ -52,18 +52,4 @@ resource "aws_security_group" "ssh_and_web" {
 resource "aws_key_pair" "openoakland" {
   key_name = "OpenOakland"
   public_key = "${file("ssh-keys/openoakland.pub")}"
-}
-
-module "oakcrime" {
-  source = "./modules/oakcrime"
-  security_group_name = "${aws_security_group.ssh_and_web.name}"
-  key_pair_id = "${aws_key_pair.openoakland.id}"
-  zone_id = "${data.aws_route53_zone.openoakland.id}"
-}
-
-module "councilmatic" {
-  source = "./modules/councilmatic"
-  security_group_name = "${aws_security_group.ssh_and_web.name}"
-  key_pair_id = "${aws_key_pair.openoakland.id}"
-  zone_id = "${data.aws_route53_zone.openoakland.id}"
 }

@@ -34,11 +34,21 @@ chmod 600 ~/.ssh/id_rsa_openoakland
 
 ## Running
 
-Running Terraform
+### Terraform
+
 ```bash
 terraform plan
 terraform apply
 ```
+
+You can also work with a specific module.
+
+```bash
+terraform plan -target=module.oakcrime -out=plan.tfplan
+terraform apply plan.tfplan
+```
+
+### Ansible
 
 Running Ansible (Councilmatic):
 ```bash
