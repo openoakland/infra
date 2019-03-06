@@ -65,7 +65,7 @@ module "db_production" {
   db_name     = "oakcrime"
   db_password = "${var.prod_db_password}"
   db_username = "oakcrime"
-  namespace   = "oakcrime-prod"
+  namespace   = "oakcrime-production"
 }
 
 module "env_web_production" {
