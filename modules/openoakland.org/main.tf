@@ -10,49 +10,22 @@ provider "aws" {
 }
 
 module "site" {
-  source = "github.com/adborden/sites//modules/site?ref=adborden-patch-1"
+  source = "github.com/openoakland/terraform-modules//s3_cloudfront_website?ref=s3-cloudfront-website"
   host   = "beta"
   zone   = "aws.openoakland.org"
 }
 
-resource "aws_iam_user" "ci" {
-  name = "ci-openoakland-org"
-}
+module "ci_user" {
+  source = "github.com/openoakland/terraform-modules//s3_deploy_user?ref=s3-cloudfront-website"
 
-resource "aws_iam_access_key" "ci" {
-  user = "${aws_iam_user.ci.name}"
-}
-
-resource "aws_iam_user_policy" "ci" {
-  name = "ci-openoakland-org-deploy"
-  user = "${aws_iam_user.ci.name}"
-
-  # TODO this should be specific to the s3 bucket created
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:ListBucket",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-              "arn:aws:s3:::beta.aws.openoakland.org",
-              "arn:aws:s3:::beta.aws.openoakland.org/*"
-            ]
-        }
-    ]
-}
-EOF
+  username      = "ci-openoakland-org"
+  s3_bucket_arn = "${module.site.s3_bucket_arn}"
 }
 
 output "aws_access_key_id" {
-  value = "${aws_iam_access_key.ci.id}"
+  value = "${module.ci_user.access_key_id}"
 }
 
 output "aws_secret_access_key" {
-  value = "${aws_iam_access_key.ci.secret}"
+  value = "${module.ci_user.secret_access_key}"
 }
