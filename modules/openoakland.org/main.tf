@@ -1,18 +1,20 @@
-# TODO understand where these providers are supposed to live
 provider "aws" {
-  region = "us-west-2"
-  alias  = "main"
+  alias = "main"
 }
 
 provider "aws" {
-  region = "us-east-1"
-  alias  = "cloudfront"
+  alias = "cloudfront"
 }
 
 module "site" {
   source = "github.com/openoakland/terraform-modules//s3_cloudfront_website?ref=s3-cloudfront-website"
   host   = "beta"
   zone   = "aws.openoakland.org"
+
+  providers = {
+    aws.main       = "aws.main"
+    aws.cloudfront = "aws.cloudfront"
+  }
 }
 
 module "ci_user" {
