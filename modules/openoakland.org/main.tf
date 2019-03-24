@@ -34,9 +34,14 @@ resource "aws_iam_user_policy" "ci" {
     "Statement": [
         {
             "Effect": "Allow",
-            "Action": "s3:*",
+            "Action": [
+                "s3:PutObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
+            ],
             "Resource": [
-              "arn:aws:s3:::beta.aws.openoakland.org"
+              "arn:aws:s3:::beta.aws.openoakland.org",
+              "arn:aws:s3:::beta.aws.openoakland.org/*"
             ]
         }
     ]
