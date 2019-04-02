@@ -45,9 +45,10 @@ module "env_worker_production" {
   name         = "oakcrime-production-worker"
 
   environment_variables = {
-    DATABASE_URL = "${module.db_production.postgis_database_url}"
-    EMAIL_URL    = "smtp://localhost"
-    SECRET_KEY   = "${var.prod_django_secret_key}"
-    SERVER_EMAIL = "root@localhost"
+    DATABASE_URL    = "${module.db_production.postgis_database_url}"
+    EMAIL_URL       = "smtp://localhost"
+    OAKCRIME_WORKER = "1"
+    SECRET_KEY      = "${var.prod_django_secret_key}"
+    SERVER_EMAIL    = "root@localhost"
   }
 }
