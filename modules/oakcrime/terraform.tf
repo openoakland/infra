@@ -11,7 +11,7 @@ module "app_oakcrime" {
 }
 
 module "db_production" {
-  source = "github.com/openoakland/terraform-modules//postgresdb?ref=v2.0.1"
+  source = "github.com/openoakland/terraform-modules//postgresdb?ref=v2.1.0"
 
   db_engine_version = "10.6"
   db_name     = "oakcrime"
@@ -21,7 +21,7 @@ module "db_production" {
 }
 
 module "env_web_production" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_web_env?ref=v2.0.0"
+  source = "github.com/openoakland/terraform-modules//beanstalk_web_env?ref=v2.1.0"
 
   app_instance = "prod-web"
   app_name     = "oakcrime"
@@ -37,7 +37,7 @@ module "env_web_production" {
 }
 
 module "env_worker_production" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_worker_env?ref=worker-environment"
+  source = "github.com/openoakland/terraform-modules//beanstalk_worker_env?ref=v2.1.0"
 
   app_instance = "production"
   app_name     = "oakcrime"
