@@ -3,6 +3,12 @@ provider "aws" {
   region                  = "us-west-2"
 }
 
+provider "aws" {
+  shared_credentials_file = "/dev/null" # require environment variables
+  region                  = "us-east-1"
+  alias                   = "cloudfront"
+}
+
 data "aws_route53_zone" "openoakland" {
   name = "aws.openoakland.org"
 }
