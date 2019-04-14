@@ -27,6 +27,7 @@ module "env_web_production" {
   app_name     = "oakcrime"
   dns_zone     = "aws.openoakland.org"
   key_pair     = "oakcrime"
+  security_groups = ["${module.db_production.security_group_id}"]
 
   environment_variables = {
     DATABASE_URL = "${module.db_production.postgis_database_url}"
@@ -43,6 +44,7 @@ module "env_worker_production" {
   app_name     = "oakcrime"
   key_pair     = "oakcrime"
   name         = "oakcrime-production-worker"
+  security_groups = ["${module.db_production.security_group_id}"]
 
   environment_variables = {
     DATABASE_URL    = "${module.db_production.postgis_database_url}"
