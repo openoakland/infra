@@ -21,12 +21,13 @@ module "db_production" {
 }
 
 module "env_web_production" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_web_env?ref=v2.1.0"
+  source = "github.com/openoakland/terraform-modules//beanstalk_web_env?ref=v2.1.1"
 
   app_instance = "prod-web"
   app_name     = "oakcrime"
   dns_zone     = "aws.openoakland.org"
   key_pair     = "oakcrime"
+  security_groups = ["${module.db_production.security_group_id}"]
 
   environment_variables = {
     DATABASE_URL = "${module.db_production.postgis_database_url}"
@@ -37,12 +38,13 @@ module "env_web_production" {
 }
 
 module "env_worker_production" {
-  source = "github.com/openoakland/terraform-modules//beanstalk_worker_env?ref=v2.1.0"
+  source = "github.com/openoakland/terraform-modules//beanstalk_worker_env?ref=v2.1.1"
 
   app_instance = "production"
   app_name     = "oakcrime"
   key_pair     = "oakcrime"
   name         = "oakcrime-production-worker"
+  security_groups = ["${module.db_production.security_group_id}"]
 
   environment_variables = {
     DATABASE_URL    = "${module.db_production.postgis_database_url}"
