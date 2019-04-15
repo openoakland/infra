@@ -59,7 +59,7 @@ ansible-playbook -i inventory playbooks/councilmatic/councilmatic.yml
 * Create an SSH key which isn't anyone's personal key to use for provisioning a machine
 * Use Ansible or some kind of desired-state configuration so that all the setup isn't in terraform
 
-## Related Resources
+## Related resources
 
 - [**`openoakland/terraform-modules`.**][modules] Collection of Terraform modules used to manage digital infrastructure.
 
