@@ -52,5 +52,6 @@ module "env_worker_production" {
     OAKCRIME_WORKER = "1"
     SECRET_KEY      = "${var.prod_django_secret_key}"
     SERVER_EMAIL    = "root@localhost"
+    SOCRATA_KEY     = "${var.prod_socrata_key}"
   }
 }
