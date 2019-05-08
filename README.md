@@ -27,9 +27,16 @@ op get item 7rh246cuoreo3lurhxdtlf5b44 | jq -r .details.notesPlain > ~/.ssh/id_r
 chmod 600 ~/.ssh/id_rsa_openoakland
 ```
 
-[1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
-[2]: https://brew.sh/
-[setup]: https://github.com/openoakland/infra/blob/master/README.setup.md
+### Secrets
+
+_TODO we should be able to get secrets from the terraform state without sharing
+secrets out of band._
+
+Copy the .env sample and fill it in with secrets from another operator or the
+terraform state.
+
+    $ cp env.sample .env
+    $ source .env
 
 
 ## Running
@@ -63,4 +70,8 @@ ansible-playbook -i inventory playbooks/councilmatic/councilmatic.yml
 
 - [**`openoakland/terraform-modules`.**][modules] Collection of Terraform modules used to manage digital infrastructure.
 
-   [modules]: https://github.com/openoakland/terraform-modules
+
+[1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
+[2]: https://brew.sh/
+[modules]: https://github.com/openoakland/terraform-modules
+[setup]: https://github.com/openoakland/infra/blob/master/README.setup.md

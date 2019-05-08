@@ -14,6 +14,11 @@ variable "prod_django_secret_key" {
   type        = "string"
 }
 
+variable "prod_socrata_key" {
+  description = "Socrata API key for accessing data.oaklandnet.com"
+  type        = "string"
+}
+
 variable "dns_zone" {
   description = "DNS zone for the Beanstalk applications"
   default     = "aws.openoakland.org"

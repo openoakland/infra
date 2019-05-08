@@ -6,6 +6,10 @@ variable "oakcrime_prod_django_secret_key" {
   description = "django_secret_key for the production app."
 }
 
+variable "oakcrime_prod_socrata_key" {
+  description = "socrata_key for the production app."
+}
+
 module "oakcrime" {
   source              = "./modules/oakcrime"
   security_group_name = "${aws_security_group.ssh_and_web.name}"
@@ -15,6 +19,7 @@ module "oakcrime" {
   # Beanstalk apps
   prod_db_password       = "${var.oakcrime_prod_db_password}"
   prod_django_secret_key = "${var.oakcrime_prod_django_secret_key}"
+  prod_socrata_key       = "${var.oakcrime_prod_socrata_key}"
   dns_zone               = "${data.aws_route53_zone.openoakland.name}"
 }
 
