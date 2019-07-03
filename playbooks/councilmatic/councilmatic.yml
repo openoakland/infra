@@ -14,6 +14,36 @@
       become: true
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
+    - name: Create login users
+      become: true
+      user:
+        groups: sudo
+        append: true
+        name: '{{ item }}'
+      with_items:
+        - tdooner
+        - howard
+
+    - name: Create authorized keys
+      become: true
+      authorized_key:
+        key: "{{ lookup('file', '../../ssh-keys/' + item + '.pub') }}"
+        user: '{{ item }}'
+      with_items:
+        - tdooner
+        - howard
+
+    - name: Enable sudo for users
+      become: true
+      copy:
+        dest: '/etc/sudoers.d/{{ item }}'
+        content: "# Managed by Ansible\n{{ item }} ALL=(ALL) NOPASSWD:ALL"
+        validate: 'visudo -cf %s'
+        mode: 0440
+      with_items:
+        - tdooner
+        - howard
+
     - name: Install Nginx
       become: true
       apt:

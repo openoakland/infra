@@ -20,22 +20,6 @@ resource "aws_instance" "councilmatic" {
       // TODO: Pass this in as a variable with 1password
       private_key = "${file("~/.ssh/id_rsa_openoakland")}"
     }
-
-    inline = [
-      "sudo useradd --create-home --shell /bin/bash tdooner",
-      "sudo -u tdooner mkdir -p ~tdooner/.ssh",
-      "sudo -u tdooner bash -c 'echo \"${file("ssh-keys/tom.pub")}\" > ~tdooner/.ssh/authorized_keys'",
-      "sudo -u tdooner chmod 600 ~tdooner/.ssh/authorized_keys",
-      "sudo usermod -aG sudo tdooner && sudo passwd -de tdooner",
-      "echo 'tdooner ALL=(ALL) NOPASSWD:ALL' | sudo tee '/etc/sudoers.d/tdooner' && sudo chmod 440 /etc/sudoers.d/tdooner",
-
-      "sudo useradd --create-home --shell /bin/bash howard",
-      "sudo -u howard mkdir -p ~howard/.ssh",
-      "sudo -u howard bash -c 'echo \"${file("ssh-keys/howard.pub")}\" > ~howard/.ssh/authorized_keys'",
-      "sudo -u howard chmod 600 ~howard/.ssh/authorized_keys",
-      "sudo usermod -aG sudo howard && sudo passwd -de howard",
-      "echo 'howard ALL=(ALL) NOPASSWD:ALL' | sudo tee '/etc/sudoers.d/howard' && sudo chmod 440 /etc/sudoers.d/howard"
-    ]
   }
 }
 
