@@ -15,7 +15,7 @@ Prerequisites: [Homebrew][2]
 
 ```bash
 # 1. Install Terraform
-brew install terraform jq ansible
+brew install terraform@0.11 jq ansible
 
 # 2. Install 1password command line tool
 # from: https://app-updates.agilebits.com/product_history/CLI
