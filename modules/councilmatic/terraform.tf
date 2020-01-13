@@ -7,7 +7,7 @@ resource "aws_instance" "councilmatic" {
   instance_type = "t2.small"
   associate_public_ip_address = true
   security_groups = ["${var.security_group_name}"]
-  key_name = "${var.key_pair_id}"
+  key_name = var.key_pair_id
 
   tags {
     Name = "Councilmatic"
@@ -18,39 +18,39 @@ resource "aws_instance" "councilmatic" {
       type = "ssh"
       user = "ubuntu"
       // TODO: Pass this in as a variable with 1password
-      private_key = "${file("~/.ssh/id_rsa_openoakland")}"
+      private_key = file("~/.ssh/id_rsa_openoakland")
     }
   }
 }
 
 resource "aws_route53_record" "councilmatic" {
-  zone_id = "${var.zone_id}"
+  zone_id = var.zone_id
   name = "councilmatic"
   type = "A"
   ttl = 60
-  records = ["${aws_instance.councilmatic.public_ip}"]
+  records = [aws_instance.councilmatic.public_ip]
 }
 
 resource "aws_acm_certificate" "cert" {
-  provider = "aws.cloudfront"
+  provider          = aws.cloudfront
   domain_name       = "oaklandcouncil.net"
   validation_method = "DNS"
 }
 
 resource "aws_acm_certificate_validation" "cert" {
-  provider = "aws.cloudfront"
-  certificate_arn         = "${aws_acm_certificate.cert.arn}"
+  provider                = aws.cloudfront
+  certificate_arn         = aws_acm_certificate.cert.arn
   # TODO: Add in `validation_record_fqdns` when we get Namecheap wired up in here.
 }
 
 resource "aws_cloudfront_distribution" "councilmatic" {
-  provider = "aws.cloudfront"
+  provider = aws.cloudfront
   enabled = true
 
   aliases = ["oaklandcouncil.net"]
   origin {
     origin_id = "oaklandcouncil.net"
-    domain_name = "${aws_instance.councilmatic.public_dns}"
+    domain_name = aws_instance.councilmatic.public_dns
     custom_origin_config {
       http_port = 80
       https_port = 443
@@ -81,7 +81,7 @@ resource "aws_cloudfront_distribution" "councilmatic" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = "${aws_acm_certificate_validation.cert.certificate_arn}"
+    acm_certificate_arn = aws_acm_certificate_validation.cert.certificate_arn
     ssl_support_method = "sni-only"
   }
 }

@@ -5,18 +5,28 @@ variable "zone_id" {}
 # pwgen -s -N 1 20
 variable "prod_db_password" {
   description = "Production password for the RDS database."
-  type        = "string"
+  type        = string
 }
 
 # pwgen -s -N 1 50
 variable "prod_django_secret_key" {
   description = "Production SECRET_KEY setting to provide the Django application."
-  type        = "string"
+  type        = string
+}
+
+variable "prod_google_maps_api_key" {
+  description = "Key for Google Maps API used for geocoding"
+  type        = string
+}
+
+variable "prod_opd_key" {
+  description = "Key for accessing OPD Box.com API"
+  type        = string
 }
 
 variable "prod_socrata_key" {
   description = "Socrata API key for accessing data.oaklandnet.com"
-  type        = "string"
+  type        = string
 }
 
 variable "dns_zone" {
