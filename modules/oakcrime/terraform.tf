@@ -35,10 +35,15 @@ module "env_web_production" {
   security_groups = [module.db_production.security_group_name]
 
   environment_variables = {
+    BOX_CLIENT_ID       = var.prod_box_client_id
+    BOX_CLIENT_SECRET   = var.prod_box_client_secret
+    BOX_ENTERPRISE_ID   = var.prod_box_enterprise_id
+    BOX_PASS_PHRASE     = var.prod_box_pass_phrase
+    BOX_PUBLIC_KEY_ID   = var.prod_box_public_key_id
+    BOX_RSA_KEY         = var.prod_box_rsa_key
     DATABASE_URL        = module.db_production.postgis_database_url
     EMAIL_URL           = "smtp://localhost"
     GOOGLE_MAPS_API_KEY = var.prod_google_maps_api_key
-    OPD_KEY             = var.prod_opd_key
     SECRET_KEY          = var.prod_django_secret_key
     SERVER_EMAIL        = "root@localhost"
   }
@@ -54,11 +59,16 @@ module "env_worker_production" {
   security_groups = [module.db_production.security_group_name]
 
   environment_variables = {
+    BOX_CLIENT_ID       = var.prod_box_client_id
+    BOX_CLIENT_SECRET   = var.prod_box_client_secret
+    BOX_ENTERPRISE_ID   = var.prod_box_enterprise_id
+    BOX_PASS_PHRASE     = var.prod_box_pass_phrase
+    BOX_PUBLIC_KEY_ID   = var.prod_box_public_key_id
+    BOX_RSA_KEY         = var.prod_box_rsa_key
     DATABASE_URL        = module.db_production.postgis_database_url
     EMAIL_URL           = "smtp://localhost"
     GOOGLE_MAPS_API_KEY = var.prod_google_maps_api_key
     OAKCRIME_WORKER     = "1"
-    OPD_KEY             = var.prod_opd_key
     SECRET_KEY          = var.prod_django_secret_key
     SERVER_EMAIL        = "root@localhost"
     SOCRATA_KEY         = var.prod_socrata_key
