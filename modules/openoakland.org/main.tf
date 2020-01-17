@@ -17,5 +17,5 @@ module "ci_user" {
   source = "github.com/openoakland/terraform-modules//s3_deploy_user"
 
   username      = "ci-openoakland-org"
-  s3_bucket_arn = "${module.site.s3_bucket_arn}"
+  s3_bucket_arn = module.site.s3_bucket_arn
 }

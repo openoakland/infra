@@ -1,3 +1,4 @@
+// passed in to the module via a "providers" block:
 provider "aws" {
   alias = "cloudfront"
 }
@@ -31,7 +32,7 @@ module "env_web_production" {
   app_name     = "oakcrime"
   dns_zone     = "aws.openoakland.org"
   key_pair     = "oakcrime"
-  security_groups = ["${module.db_production.security_group_name}"]
+  security_groups = [module.db_production.security_group_name]
 
   environment_variables = {
     DATABASE_URL        = module.db_production.postgis_database_url
