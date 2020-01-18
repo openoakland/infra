@@ -6,6 +6,7 @@ module "site" {
   source = "github.com/openoakland/terraform-modules//s3_cloudfront_website"
   host   = "beta"
   zone   = "aws.openoakland.org"
+  aliases = ["openoakland.org"]
 
   providers = {
     aws.main       = aws
