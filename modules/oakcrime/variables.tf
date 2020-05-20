@@ -1,6 +1,5 @@
 variable "security_group_name" {}
 variable "key_pair_id" {}
-variable "zone_id" {}
 
 variable "prod_box_enterprise_id" {
   description = "Box Enterprise ID for Patrol log fetching."

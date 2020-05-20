@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "site" {
-  source = "github.com/openoakland/terraform-modules//s3_cloudfront_website"
+  source = "github.com/openoakland/terraform-modules//s3_cloudfront_website?ref=v2.2.0"
   host   = "beta"
   zone   = "aws.openoakland.org"
   aliases = ["openoakland.org"]
