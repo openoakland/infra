@@ -42,7 +42,6 @@ module "oakcrime" {
   source              = "./modules/oakcrime"
   security_group_name = aws_security_group.ssh_and_web.name
   key_pair_id         = aws_key_pair.openoakland.id
-  zone_id             = data.aws_route53_zone.openoakland.id
 
   # Beanstalk apps
   dns_zone                 = data.aws_route53_zone.openoakland.name
@@ -56,6 +55,11 @@ module "oakcrime" {
   prod_django_secret_key   = var.oakcrime_prod_django_secret_key
   prod_google_maps_api_key = var.oakcrime_prod_google_maps_api_key
   prod_socrata_key         = var.oakcrime_prod_socrata_key
+
+  providers = {
+    aws            = aws
+    aws.cloudfront = aws.cloudfront
+  }
 }
 
 output "oakcrime_ci_aws_access_key_id" {
