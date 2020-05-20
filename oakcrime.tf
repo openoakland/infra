@@ -67,3 +67,8 @@ output "oakcrime_ci_aws_secret_access_key" {
   value     = module.oakcrime.ci_aws_secret_access_key
   sensitive = true
 }
+
+output "oakcrime_namecheap_name_servers" {
+  description = "Set the oakcrime.org domain nameservers to these values:"
+  value = module.oakcrime.namecheap_name_servers
+}
